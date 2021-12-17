@@ -1,0 +1,51 @@
+{% extends 'App/Homepage.html' %}
+{% load socialaccount %}
+{% block content %}
+{% load static%}
+
+<div class="orders-c">
+  <span>My Orders</span>
+  <hr>
+  {% for item in products %}
+  <div>
+    <img src="/media/{{item.product.product_image1}}" width="150" height="150" alt="product">
+    <strong><span>{{item.product.product_name}}</span></strong>
+    <span>₹{{item.get_total}}</span>
+    {% if item.Status == "Pending" %}
+    <span style="color:red">{{item.Status}}</span>
+    {% elif item.Status == "Delivered" %}
+    <span style="color:black">{{item.Status}}</span>
+    {% else %}
+    <span style="color:green">On the way</span>
+    {% endif %}
+    <span>{{item.payment}}</span>
+  </div>
+  <hr>
+  {% endfor %}
+<!--  <div>-->
+<!--    <img src="https://tgkvf.org/wp-content/uploads/2016/12/cell-phone-call-icon-04-256.png" width="150" height="150" alt="product">-->
+<!--    <strong><span>Product_Name</span></strong>-->
+<!--    <span>$999</span>-->
+<!--    -->
+<!--    <span>Cash On Delivery</span>-->
+<!--  </div>-->
+<!--  <hr>-->
+<!--  <div>-->
+<!--    <img src="https://tgkvf.org/wp-content/uploads/2016/12/cell-phone-call-icon-04-256.png" width="150" height="150" alt="product">-->
+<!--    <strong><span>Product_Name</span></strong>-->
+<!--    <span>$999</span>-->
+<!--    <span style="color:black">Delivered</span>-->
+<!--    <span>Cash On Delivery</span>-->
+<!--  </div>-->
+<!--  <hr>-->
+<!--  <div>-->
+<!--    <img src="https://tgkvf.org/wp-content/uploads/2016/12/cell-phone-call-icon-04-256.png" width="150" height="150" alt="product">-->
+<!--    <strong><span>Product_Name</span></strong>-->
+<!--    <span>$999</span>-->
+<!--    <span style="color:red">Pending</span>-->
+<!--    <span>Cash On Delivery</span>-->
+<!--  </div>-->
+<!--  <hr>-->
+<!--</div>-->
+
+{% endblock content %}

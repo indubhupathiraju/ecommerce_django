@@ -1,0 +1,13 @@
+{% extends 'App/Homepage.html' %}
+{% block content %}
+{% load static%}
+
+<div class="center-box">
+    <img src="https://cdn2.iconfinder.com/data/icons/basic-ui-elements-16/117/correct-512.png" width="150" alt="cart-empty">
+    <h1 class="mt-5">Your Order has been Successfully Placed</h1>
+    <a href="{% url 'home' %}"><button type="button" class="btn btn-primary mt-3">Continue Shopping</button></a>
+  </div>
+
+{% load static %}
+<script defer src="{% static 'css/cart.js' %}"></script>
+{% endblock content %}

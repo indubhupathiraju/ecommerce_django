@@ -1,0 +1,84 @@
+{% extends 'App/Homepage.html' %}
+{% load socialaccount %}
+{% block content %}
+
+<style>
+  body{
+    margin: 0;
+    padding: 0;
+          background-image: url("https://40obml2t8u691fd442y9pg71-wpengine.netdna-ssl.com/wp-content/uploads/login-page-bg.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+  }
+  html{
+    height: 100%;
+            }
+
+</style>
+
+<div class="register-c">
+      <div class="card-body" >
+        <div class="card-title py-3">
+          <h4>Register for a free account</h4>
+        </div>
+
+        <form action="{% url 'register' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              id="usernameField"
+              value="{{fieldValues.username}}"
+              class="form-control form-control-sm"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              class="form-control form-control-sm"
+              id="emailField"
+
+              value="{{fieldValues.email}}"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              name="password1"
+              placeholder="Password"
+              class="form-control form-control-sm"
+              id="passwordField"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              name="password2"
+              placeholder="Confirm Password"
+              class="form-control form-control-sm"
+
+            />
+          </div>
+          <input type="submit" value="Register" class="btn btn-block btn-primary submit-btn mt-2" />
+        </form>
+
+      </div>
+
+				{% for message in messages %}
+					<p id="messages">{{message}}</p>
+        {% endfor %}
+
+        <div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+					</div>
+
+				</div>
+      </div>
+
+{% endblock content %}

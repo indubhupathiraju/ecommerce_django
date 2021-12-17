@@ -1,0 +1,41 @@
+{% extends 'App/Homepage.html' %}
+{% block content %}
+{% load static%}
+{% if quantity %}
+<div class="cart-c">
+<div class="cart-items-c">
+	<span>My Cart ({{quantity}})</span>
+	{% for item in OrderItem%}
+	<div>
+		<img src="/media/{{item.product.product_image1}}" alt="product">
+		<span>{{item.product.product_name}}</span>
+		<span>₹{{item.get_total}}</span>
+		<span><button data-product="{{item.product.id}}" data-action="remove" class="update-cart">-</button> {{item.quantity}} <button data-product="{{item.product.id}}" data-action="add" class="update-cart">+</button></span>
+		<span><button data-product="{{item.product.id}}" class="remove-prod">REMOVE</button></span>
+	</div>
+	{% endfor %}
+	<a href="{% url 'checkout' %}"><button>Checkout</button></a>
+</div>
+
+<div class="cart-details-c">
+	<span>Price Details</span>
+<div>
+  <span>Price ({{quantity}} items)</span><span>₹{{Total}}</span>
+</div>
+<hr width="95%">
+<div>
+  <span><strong>Total Amount</strong></span><span>₹{{Total}}</span>
+</div>
+</div>
+</div>
+{% else %}
+<div class="center-box">
+  <img src="https://icons.veryicon.com/png/o/miscellaneous/business-linear-icon-2/empty-cart.png" width="200" alt="cart-empty">
+  <h1 class="mt-5">Your Cart is Empty</h1>
+  <a href="{% url 'home' %}"><button type="button" class="btn btn-primary mt-3">Continue Shopping</button></a>
+</div>
+{% endif %}
+
+{% load static %}
+<script defer src="{% static 'css/cart.js' %}"></script>
+{% endblock content %}

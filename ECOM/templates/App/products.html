@@ -1,0 +1,21 @@
+{% extends 'App/Homepage.html' %}
+{% block content %}
+{% load static%}
+
+<div class="products-c">
+  <span>{{category}}</span>
+  <div class="products-grid-c">
+    {% for i in prod %}
+    <div class="product-card">
+      <a href="products/{{i.id}}"><img src="/media/{{i.product_image1}}" alt="{{i.product_image}}"></a>
+      <span>{{i.product_name}}</span>
+      <span><strong>₹{{i.price}}</strong></span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% load static %}
+<script defer src="{% static 'css/cart.js' %}"></script>
+
+{% endblock content %}

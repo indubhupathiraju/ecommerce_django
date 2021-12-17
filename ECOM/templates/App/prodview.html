@@ -1,0 +1,56 @@
+{% extends 'App/Homepage.html' %}
+{% block title %} {{product.product_name}} -- My Awesome Cart{% endblock %}
+{% block content %}
+
+<div class="product-view-c">
+    <div>
+       <div class="swiper-slide" style="background-image:url(/media/{{product.product_image1}})"></div>
+
+        <!-- <div class="swiper-container gallery-top">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image1}})"></div>
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image2}})"></div>
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image3}})"></div>
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image4}})"></div>
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image4}})"></div>
+          </div>
+        </div>
+        <div class="swiper-container gallery-thumbs">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image1}})"></div>
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image2}})"></div>
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image3}})"></div>
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image4}})"></div>
+            <div class="swiper-slide" style="background-image:url(/media/{{product.product_image4}})"></div>
+          </div>
+        </div> -->
+    </div>
+    <div>
+        <span><strong>{{product.product_name}}</strong></span>
+        <span>₹{{product.price}}</span>
+        {% csrf_token %}
+        <input type="hidden" class="product_id" value="{{product.id}}">
+        <a class="update-cart" data-product={{product.id}} data-action="add"><button>Add To Cart</button></a>
+        <button class="update-wishlist btn btn-success" data-product={{product.id}} data-action="add">Add To WishList</button>
+        <button class="btn btn-primary" data-product={{product.id}} data-action="shareProduct" onclick="shareProduct()">Share Product</button>        
+        <a data-product={{product.id}} data-action="add" class="buy-now"><button>Buy Now</button></a>
+        <span>{{product.desc}}</span>
+    </div>
+</div>
+{% if product_path %}
+<div> {{product_path}}</div>
+{% endif %}
+    {% load static %}
+
+    <script defer src="{% static 'css/cart.js' %}"></script>
+    <script defer src="{% static 'css/wishlist.js' %}"></script>
+    <script>
+
+      function shareProduct()
+      {
+        alert("Share url to share Product:- " + window.location.href);
+      }
+    </script>
+
+{% endblock content %}
+

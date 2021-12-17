@@ -1,0 +1,55 @@
+{% extends 'App/Homepage.html' %}
+{% load socialaccount %}
+{% block content %}
+{% load static%}
+	  <style>
+		body{
+			margin: 0;
+			padding: 0;
+            background-image: url("https://40obml2t8u691fd442y9pg71-wpengine.netdna-ssl.com/wp-content/uploads/login-page-bg.jpg");
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+		}
+		html{
+			height: 100%;
+            }
+	</style>
+	<div class="container h-100" >
+			<div class="user_card" id="usercard">
+				<div class="d-flex justify-content-center">
+			<h3 id="form-title" style="color:black;">LOGIN</h3>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form method="POST" action="">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" name="username" placeholder="Username..." class="form-control">
+						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" name="password" placeholder="Password..." class="form-control" >
+						</div>
+						<div>
+							<input class="btn login_btn" type="submit" value="Login">
+						</div>
+					</form>
+				</div>
+				{% for message in messages %}
+					<p id="messages">{{message}}</p>
+				{% endfor %}
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

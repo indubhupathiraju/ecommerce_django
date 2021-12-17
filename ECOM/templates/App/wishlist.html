@@ -1,0 +1,28 @@
+{% extends 'App/Homepage.html' %}
+{% block content %}
+{% load static%}
+
+<br><br><br>
+{% if OrderItem %}
+<div class="wishlist container">
+	<span>My WishList</span>
+	{% for item in OrderItem %}
+	<div>
+		<img src="/media/{{item.product.product_image1}}" alt="product">
+		<span>{{item.product.product_name}}</span>
+		<span>₹{{item.product.price}}</span>
+		<span><button data-product="{{item.product.id}}" class="remove-prod-wishlist btn btn-danger">REMOVE</button></span>
+	</div>
+	{% endfor %}
+	{% else %}
+</div>
+<div class="center-box">
+  <img src="https://icons.veryicon.com/png/o/miscellaneous/business-linear-icon-2/empty-cart.png" width="200" alt="cart-empty">
+  <h1 class="mt-5">Add products to Your WishList</h1>
+  <a href="{% url 'home' %}"><button type="button" class="btn btn-primary mt-3">Continue Shopping</button></a>
+</div> 
+{% endif %}
+
+{% load static %}
+<script defer src="{% static 'css/wishlist.js' %}"></script>
+{% endblock content %}

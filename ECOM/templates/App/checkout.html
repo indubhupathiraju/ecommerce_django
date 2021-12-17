@@ -1,0 +1,230 @@
+{% extends 'App/Homepage.html' %}
+{% block content %}
+{% load static%}
+
+<div class="checkout-c">
+	<div id="accordion">
+		<div class="card">
+		  <div class="card-header" id="headingOne">
+			<h5 class="mb-0">
+				<button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					Delivery Address
+				</button>
+			</h5>
+		  </div>
+		  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+			<div class="card-body">
+								{% for i in address %}
+				<div>
+					<input type="radio" name="address" value="{{i.id}}"/>
+					<label for="address">
+						<div class="address">
+							<span><strong>{{i.customer}}</strong></span>
+							<span>{{i.mobile}}</span>
+							<span>{{i.street_address}}</span>
+						</div>
+					</label>
+				</div>
+				<hr>
+													{% endfor %}
+				<button class="add-address btn btn-primary btn-block">+ Add Address</button>
+				<button class="next1 btn btn-primary btn-block">Next</button>
+				<div class="add-address-form">
+					<form id="form" method="post" action="{% url 'payment' %}">
+						{% csrf_token %}
+						<div id="shipping-info">
+							<div class="form-field">
+								<input required class="form-control" type="text" name="name" placeholder="Name..">
+							</div>
+							<div class="form-field">
+								<input class="form-control" type="text" name="mobile" placeholder="Mobile...">
+							</div>
+							<div class="form-field">
+								<input class="form-control" type="text" name="address" placeholder="Address..">
+							</div>
+							<div class="form-field">
+								<input class="form-control" type="email" name="email" placeholder="Email..">
+							</div>
+							<div class="form-field">
+								<input class="form-control" type="text" name="city" placeholder="City..">
+							</div>
+							<div class="form-field">
+								<input class="form-control" type="text" name="state" placeholder="State..">
+							</div>
+							<div class="form-field">
+								<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+							</div>
+						</div>
+						<hr>
+						<input id="form-button" class="btn btn-success btn-block" type="submit" value="Save">
+											<button class="cancel-address btn btn-danger mt-1">Cancel</button>
+					</form>
+					{% for message in messages %}
+					<p id="messages">{{message}}</p>
+					{% endfor %}
+
+				</div>
+			</div>
+		  </div>
+		</div>
+		<div class="card">
+		  <div class="card-header" id="headingTwo">
+			<h5 class="mb-0">
+			  	<button class="btn collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+					Order Summary
+			  	</button>
+			</h5>
+		  </div>
+		  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+			<div class="card-body">
+				<div class="cart-items-c">
+					{% for item in OrderItem %}
+					<div>
+						<img src="/media/{{item.product.product_image1}}" alt="product" style="height:100px; width:100px">
+						<span>{{item.product.product_name}}</span>
+						<span>₹{{item.product.price}}</span>
+						<span>Qty: {{item.quantity}}</span>
+					</div>
+					{% endfor %}
+				</div>
+			<button class="next2 btn btn-primary btn-block mt-1">Next</button>
+			</div>
+		  </div>
+		</div>
+		<div class="card">
+		  <div class="card-header" id="headingThree">
+			<h5 class="mb-0">
+			  <button class="btn collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+				Payment Options
+			  </button>
+			</h5>
+		  </div>
+		  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+			<div class="card-body">
+			  <input type="radio" name="paymentmode" value="cod">
+			  <label for="cod">Cash On Delivery</label>
+			  <hr>
+				<input type="radio" name="paymentmode" value="neft">
+			  <label for="neft">Net banking</label>
+			  <hr>
+			  <button class="btn btn-success" id="place-order">Place Order</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div>
+		<div class="cart-details-c">
+			<span>Price Details</span>
+		<div>
+		  <span>Price ({{quantity}} items)</span><span>₹{{Total}}</span>
+		</div>
+		<hr width="95%">
+		<div>
+		  <span><strong>Total Amount</strong></span><span>₹{{Total}}</span>
+		</div>
+	  </div>
+</div>
+</div>
+
+
+{% load static %}
+<script defer src="{% static 'css/cart.js' %}"></script>
+
+
+<script>
+	document.querySelector('.next1').addEventListener('click', () => {
+		document.querySelector('#collapseOne').classList.remove('show');
+		document.querySelector('#collapseTwo').classList.add('show');
+	})
+	document.querySelector('.next2').addEventListener('click', () => {
+		document.querySelector('#collapseTwo').classList.remove('show');
+		document.querySelector('#collapseThree').classList.add('show');
+	})
+	document.querySelector('.add-address').addEventListener('click', () => {
+		document.querySelector('.add-address-form').classList.add('active');
+	})
+	document.querySelector('.cancel-address').addEventListener('click', () => {
+		document.querySelector('.add-address-form').classList.remove('active');
+	})
+</script>
+{% endblock content %}
+
+<!-- <div class="row">
+	<div class="col-lg-6">
+		<div class="container" style="width:50% ;margin-top:15%">
+
+			<hr>
+			<h3>Customer Details</h3>
+			<hr>
+			<form id="form">
+
+				<div id="user-info">
+					<div class="form-field">
+						<input required class="form-control" type="text" name="name" placeholder="Name..">
+					</div>
+					<div class="form-field">
+						<input required class="form-control" type="email" name="email" placeholder="Email..">
+					</div>
+				</div>
+
+				<div id="shipping-info">
+					<hr>
+					<p>Shipping Information:</p>
+					<hr>
+					<div class="form-field">
+						<input class="form-control" type="text" name="address" placeholder="Address..">
+					</div>
+					<div class="form-field">
+						<input class="form-control" type="text" name="city" placeholder="City..">
+					</div>
+					<div class="form-field">
+						<input class="form-control" type="text" name="state" placeholder="State..">
+					</div>
+					<div class="form-field">
+						<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+					</div>
+				</div>
+
+				<hr>
+				<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+			</form>
+		</div>
+
+
+
+	</div>
+
+	<div class="col-lg-6">
+		<div class="container" style="width:80% ;margin-top:15%">
+
+
+
+			<hr>
+			<h3>Order Summary</h3>
+			<hr>
+			{% for item in OrderItem %}
+			<div class="row">
+				<div style="flex:1"><img class="row-image" src="/media/{{item.product.product_image}}" style="height:50px; width:50px;"></div>
+				<div style="flex:2"><p>{{item.product.product_name}}</p></div>
+				<div style="flex:2"><p>Rs. {{item.product.price}}</p></div>
+				<div style="flex:1"><p>{{item.quantity}}</p></div>
+
+
+
+		</div>
+
+				<br>
+			{% endfor %}
+		<br>
+		<br>
+
+
+		<h5 style="float:right;" >Total:  Rs.   {{Total}}</h5>
+		<h5 style="float:right; margin-right:5%">Items: {{quantity}}</h5>
+
+
+			<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+	</div>
+	</div>
+
+</div> -->
